@@ -1,7 +1,19 @@
-
+﻿import database_tools as dt 
+import indicators
 import datetime
-import strategy
 
-current_strategy=strategy.simple_moving_average_envelope_with_RSI()
 
-print current_strategy.buy_signal("GOOG",datetime.date.today())
+print "standard_deviation " + str(indicators.standard_deviation("TXT",datetime.datetime.today(),10))
+
+print "simple_moving_average " + str(indicators.SMA("TXT",datetime.datetime.today(),10))
+
+print "volatility " + str(indicators.volatility("TXT",datetime.datetime.today(),10))
+
+print "WilliamsR " + str(indicators.willamsR("TXT",datetime.datetime.today(),10))
+
+print "RSI " + str(indicators.RSI("TXT",datetime.datetime.today(),10))
+
+print "average_true_range " + str(indicators.average_true_range("TXT",datetime.datetime.today(),10))
+
+print "EMA " + str(indicators.EMA("TXT",datetime.datetime.today(),10))
+

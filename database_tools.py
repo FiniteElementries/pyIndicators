@@ -3,7 +3,6 @@ import datetime
 import os.path
 import os
 import pandas as pd
-import sys
 
 import contextlib
 import sys
@@ -63,7 +62,7 @@ def get_stock_data(ticker, date, period):
 
     retVal=data[(date+datetime.timedelta(days=-(period*2+7))):date].tail(n=period)
         
-    if(len(retVal.index)==period and retVal.index[-1].date()==date):
+    if(len(retVal.index)==period and retVal.index[-1].date()==date.date()):
         return retVal
     else:
         print("Warning stock data not extracted properly!")
