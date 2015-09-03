@@ -13,7 +13,7 @@ print "WilliamsR " + str(indicators.willamsR("TXT",datetime.datetime.today(),10)
 
 print "RSI " + str(indicators.RSI("TXT",datetime.datetime.today(),10))
 
-print "average_true_range " + str(indicators.average_true_range("TXT",datetime.datetime.today(),10))
+print "average_true_range " + str(indicators.ATR("TXT",datetime.datetime.today(),10))
 
 print "EMA " + str(indicators.EMA("TXT",datetime.datetime.today(),10))
 

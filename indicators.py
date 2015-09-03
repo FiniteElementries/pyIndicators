@@ -1,11 +1,17 @@
-﻿
-import database_tools as dt
+﻿import database_tools as dt
 import pandas as pd
 import datetime
 import numpy as np
 
 
 def standard_deviation(ticker,date,periods):
+    ''' calculate standard deviation in close price
+    string: ticker
+    Datetime: date_start
+    int: periods
+
+    return double
+    '''
 
     stock_data=dt.get_stock_data(ticker,date,periods)
 
@@ -13,7 +19,15 @@ def standard_deviation(ticker,date,periods):
 
     return retVal
 
+
 def SMA(ticker, date, periods):
+    ''' calculate simple moving average in close price
+    string: ticker
+    Datetime: date_start
+    int: periods
+
+    return double
+    '''
 
     stock_data=dt.get_stock_data(ticker,date,periods)
 
@@ -22,6 +36,13 @@ def SMA(ticker, date, periods):
     return retVal
 
 def volatility(ticker, date, periods):
+    ''' calculate volatility in close price
+    string: ticker
+    Datetime: date_start
+    int: periods
+
+    return double
+    '''
 
     stock_data=dt.get_stock_data(ticker,date,periods+1)
     close_data=stock_data['Close'].values
@@ -36,6 +57,14 @@ def volatility(ticker, date, periods):
     return retVal
 
 def willamsR(ticker, date, periods):
+    ''' calculate williamsR
+    http://stockcharts.com/school/doku.php?id=chart_school:technical_indicators:williams_r
+    string: ticker
+    Datetime: date_start
+    int: periods
+
+    return double
+    '''
     stock_data=dt.get_stock_data(ticker,date,periods)
 
     highest_high=stock_data['High'].max()
@@ -47,6 +76,13 @@ def willamsR(ticker, date, periods):
     return R
 
 def EMA(ticker, date, periods):
+    ''' calculate exponential moving average in close price
+    string: ticker
+    Datetime: date_start
+    int: periods
+
+    return double
+    '''
 
     new_periods=periods*5
     stock_data=dt.get_stock_data(ticker,date,new_periods)
@@ -63,15 +99,28 @@ def EMA(ticker, date, periods):
     return retVal
 
 def MACD_customized(ticker, date, periods):
+    ''' to be developed
+    '''
     return 0
 
 def bollinger_bands_customized(ticker, date, periods):
+    ''' to be developed
+    '''
     return 0
 
 def ADX(ticker, date, periods):
+    ''' to be developed
+    '''
     return 0
 
 def RSI(ticker,date, periods):
+    ''' calculate RSI
+    string: ticker
+    Datetime: date_start
+    int: periods
+
+    return double
+    '''
 
     stock_data=dt.get_stock_data(ticker,date,periods+1)
     close_data=stock_data['Close'].values
@@ -91,7 +140,14 @@ def RSI(ticker,date, periods):
     return retVal
 
 
-def average_true_range(ticker,date,periods):
+def ATR(ticker,date,periods):
+    ''' calculate ATR
+    string: ticker
+    Datetime: date_start
+    int: periods
+
+    return double
+    '''
 
     stock_data=dt.get_stock_data(ticker,date,periods+1)
 
@@ -113,9 +169,14 @@ def average_true_range(ticker,date,periods):
 
 
 def typical_price(ticker,date):
+
+    ''' to be developed
+    '''
     return 0
 
 def true_range(ticker,date):
+    ''' to be developed
+    '''
     return 0
 
 if __name__ == '__main__':
