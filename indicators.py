@@ -3,11 +3,11 @@ import pandas as pd
 import datetime
 import numpy as np
 
-
+#indicators of a range
 def standard_deviation(ticker,date,periods):
     ''' calculate standard deviation in close price
     string: ticker
-    Datetime: date_start
+    Datetime: date
     int: periods
 
     return double
@@ -19,11 +19,10 @@ def standard_deviation(ticker,date,periods):
 
     return retVal
 
-
 def SMA(ticker, date, periods):
     ''' calculate simple moving average in close price
     string: ticker
-    Datetime: date_start
+    Datetime: date
     int: periods
 
     return double
@@ -38,7 +37,7 @@ def SMA(ticker, date, periods):
 def volatility(ticker, date, periods):
     ''' calculate volatility in close price
     string: ticker
-    Datetime: date_start
+    Datetime: date
     int: periods
 
     return double
@@ -60,7 +59,7 @@ def willamsR(ticker, date, periods):
     ''' calculate williamsR
     http://stockcharts.com/school/doku.php?id=chart_school:technical_indicators:williams_r
     string: ticker
-    Datetime: date_start
+    Datetime: date
     int: periods
 
     return double
@@ -78,7 +77,7 @@ def willamsR(ticker, date, periods):
 def EMA(ticker, date, periods):
     ''' calculate exponential moving average in close price
     string: ticker
-    Datetime: date_start
+    Datetime: date
     int: periods
 
     return double
@@ -98,15 +97,37 @@ def EMA(ticker, date, periods):
 
     return retVal
 
-def MACD_customized(ticker, date, periods):
-    ''' to be developed
+def MACD_customized(ticker, date, fast_periods, slow_periods):
+    ''' return ratio between fastEMA and slowEMA
+    string: ticker
+    Datetime: date
+    fast_periods: int
+    slow_periods: int
+
+    return double
     '''
-    return 0
+
+    fastEMA=EMA(ticker,date,fast_periods)
+    slowEMA=EMA(ticker,date,slow_periods)
+
+    retVal=fastEMA/slowEMA
+
+    return retVal
 
 def bollinger_bands_customized(ticker, date, periods):
-    ''' to be developed
+    ''' calculate (close-ema)/std to reflex location of today's price relative to the band
+    string: ticker
+    Datetime: date
+    int: periods
     '''
-    return 0
+    std=standard_deviation(ticker,date,periods)
+    ema=EMA(ticker,date,periods)
+
+    close=get_price(ticker,date,"Close")
+
+    retVal=(close-ema)/std
+
+    return retVal
 
 def ADX(ticker, date, periods):
     ''' to be developed
@@ -116,7 +137,7 @@ def ADX(ticker, date, periods):
 def RSI(ticker,date, periods):
     ''' calculate RSI
     string: ticker
-    Datetime: date_start
+    Datetime: date
     int: periods
 
     return double
@@ -139,11 +160,10 @@ def RSI(ticker,date, periods):
 
     return retVal
 
-
 def ATR(ticker,date,periods):
     ''' calculate ATR
     string: ticker
-    Datetime: date_start
+    Datetime: date
     int: periods
 
     return double
@@ -168,16 +188,54 @@ def ATR(ticker,date,periods):
     return retVal
 
 
+# single day indicators
 def typical_price(ticker,date):
+    ''' return typical price on a date
+    string: ticker
+    Datetime: date
 
-    ''' to be developed
+    return double
     '''
-    return 0
+    stock_data=dt.get_stock_data(ticker,date,1)
+
+    retVal=(stock_data["High"].values[0]+stock_data["Low"].values[0]+stock_data["Close"].values[0])/3
+
+    return retVal
 
 def true_range(ticker,date):
-    ''' to be developed
+    ''' return true range on a date
+    string: ticker
+    Datetime: date
+
+    return double
     '''
-    return 0
+    stock_data=dt.get_stock_data(ticker,date,2)
+
+    H=stock_data["High"].values[1]
+    L=stock_data["Low"].values[1]
+    PC=stock_data["Close"].values[0]
+
+    HL=H-L
+    HPC=abs(H-PC)
+    LPC=abs(L-PC)
+
+    retVal=max(HL,HPC,LPC)
+
+    return retVal
+
+def get_price(ticker,date,price_type):
+    ''' get close price of a date
+    string: ticker
+    Datetime: date
+    string: price_type {"Buy","Sell","High","Low","Volume"}
+    
+    return double
+    '''
+    stock_data=dt.get_stock_data(ticker,date,1)
+
+    return stock_data[price_type].values[0]
+
+
 
 if __name__ == '__main__':
     print simple_moving_average("GooG",datetime.date(2015,3,25),14)

@@ -17,3 +17,5 @@ print "average_true_range " + str(indicators.ATR("TXT",datetime.datetime.today()
 
 print "EMA " + str(indicators.EMA("TXT",datetime.datetime.today(),10))
 
+print "bollinger_bands_customized " + str(indicators.bollinger_bands_customized("TXT",datetime.datetime.today(),10))
+
